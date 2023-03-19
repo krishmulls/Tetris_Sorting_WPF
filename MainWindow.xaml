@@ -6,22 +6,46 @@
         xmlns:local="clr-namespace:Tetris_Sorting_WPF"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Tetris_Sorting" Height="470" Width="500" >
+        Title="Tetris_Sorting" Height="580" Width="540" >
     <Grid>
-        <Canvas Margin="0,0,157,0"  x:Name="canvas">
-            <Border BorderBrush="Black" BorderThickness="1" Height="404" Canvas.Left="11" Canvas.Top="10" Width="315">
-                <Label Content="             Container Value" HorizontalAlignment="Left" Height="38" Margin="45,19,0,0" VerticalAlignment="Top" Width="219"/>
-            </Border>
-            <Label Content="3." Canvas.Left="330" Canvas.Top="95"/>
-        </Canvas>
-        <Label Content="1." HorizontalAlignment="Left" Margin="332,15,0,0" VerticalAlignment="Top"/>
-        <Label Content="2." HorizontalAlignment="Left" Margin="331,56,0,0" VerticalAlignment="Top"/>
-        <Label Content="4." HorizontalAlignment="Left" Margin="330,135,0,0" VerticalAlignment="Top"/>
-        <Label Content="5" HorizontalAlignment="Left" Margin="330,175,0,0" VerticalAlignment="Top"/>
-        <Label Content="6." HorizontalAlignment="Left" Margin="413,16,0,0" VerticalAlignment="Top"/>
-        <Label Content="7." HorizontalAlignment="Left" Margin="413,56,0,0" VerticalAlignment="Top"/>
-        <Label Content="8." HorizontalAlignment="Left" Margin="413,96,0,0" VerticalAlignment="Top"/>
-        <Label Content="9." HorizontalAlignment="Left" Margin="413,136,0,0" VerticalAlignment="Top"/>
-        <Label Content="10." HorizontalAlignment="Left" Margin="413,176,0,0" VerticalAlignment="Top"/>
+        <Canvas Name="canvas" HorizontalAlignment="Left" Height="420" Margin="18,109,0,0" VerticalAlignment="Top" Width="304"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="420" Margin="18,109,0,0" VerticalAlignment="Top" Width="304"/>
+        <Label Content="1." HorizontalAlignment="Left" Margin="349,21,0,0" VerticalAlignment="Top"/>
+        <Label Content="2." HorizontalAlignment="Left" Margin="349,63,0,0" VerticalAlignment="Top"/>
+        <Label Content="4." HorizontalAlignment="Left" Margin="347,141,0,0" VerticalAlignment="Top"/>
+        <Label Content="5." HorizontalAlignment="Left" Margin="347,181,0,0" VerticalAlignment="Top"/>
+        <Label Content="6." HorizontalAlignment="Left" Margin="431,23,0,0" VerticalAlignment="Top"/>
+        <Label Content="7." HorizontalAlignment="Left" Margin="431,63,0,0" VerticalAlignment="Top"/>
+        <Label Content="8." HorizontalAlignment="Left" Margin="431,103,0,0" VerticalAlignment="Top"/>
+        <Label Content="9." HorizontalAlignment="Left" Margin="431,143,0,0" VerticalAlignment="Top"/>
+        <Label Content="10." HorizontalAlignment="Left" Margin="431,183,0,0" VerticalAlignment="Top"/>
+        <Image HorizontalAlignment="Left" Height="46" Margin="375,11,0,0" VerticalAlignment="Top" Width="42" Source="images/one.png"/>
+        <Image HorizontalAlignment="Left" Height="40" Margin="375,51,0,0" VerticalAlignment="Top" Width="38" Source="images/two.png" RenderTransformOrigin="0.526,0.693"/>
+        <Image HorizontalAlignment="Left" Height="38" Margin="377,91,0,0" VerticalAlignment="Top" Width="36" RenderTransformOrigin="0.514,0.515" Source="images/three.png"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="383,133,0,0" VerticalAlignment="Top" Width="32" Source="images/four.png"/>
+        <Image HorizontalAlignment="Left" Height="42" Margin="377,177,0,0" VerticalAlignment="Top" Width="44" Source="images/five.png"/>
+        <Image HorizontalAlignment="Left" Height="40" Margin="467,17,0,0" VerticalAlignment="Top" Width="34" Source="images/six.png"/>
+        <Image HorizontalAlignment="Left" Height="38" Margin="467,55,0,0" VerticalAlignment="Top" Width="36" Source="images/seven.png"/>
+        <Image HorizontalAlignment="Left" Height="46" Margin="467,91,0,0" VerticalAlignment="Top" Width="40" Source="images/eight.png"/>
+        <Image HorizontalAlignment="Left" Height="42" Margin="477,135,0,0" VerticalAlignment="Top" Width="46" Source="images/nine.png"/>
+        <Image HorizontalAlignment="Left" Height="40" Margin="465,185,0,0" VerticalAlignment="Top" Width="50" Source="images/ten.png"/>
+        <Label Content="Select Option To Add:" HorizontalAlignment="Left" Margin="335,224,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Option:" HorizontalAlignment="Left" Margin="349,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.35,0.348"/>
+        <Label Content="Rotate:" HorizontalAlignment="Left" Margin="435,254,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="Option" HorizontalAlignment="Left" Height="22" Margin="409,259,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.485,0.017"/>
+        <TextBox Name="Rotation" HorizontalAlignment="Left" Height="22" Margin="487,259,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.515,0.562"/>
+        <Button Name ="Add" Content="ADD" HorizontalAlignment="Left" Height="28" Margin="359,411,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FF5FE82F" Background="#FF5BD62F" OpacityMask="#FF69EA31" FontWeight="Bold" Click="Add_Click"/>
+        <Button Name="Delete" Content="DELETE" HorizontalAlignment="Left" Height="28" Margin="357,449,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FFED3618" Background="#FFE63317" OpacityMask="#FF69EA31" FontWeight="Bold" Click="Delete_Click"/>
+        <Button Name="Clear" Content="CLEAR" HorizontalAlignment="Left" Height="28" Margin="359,485,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FFC5C70D" Background="#FFE0BC13" OpacityMask="#FFE7F312" FontWeight="Bold" Click="Clear_Click"/>
+        <Image Name="Selected_Image" HorizontalAlignment="Left" Height="41" Margin="378,322,0,0" VerticalAlignment="Top" Width="94"/>
+        <Label Content="Display Selected Option:" HorizontalAlignment="Left" Margin="334,284,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="3." HorizontalAlignment="Left" Margin="347,100,0,0" VerticalAlignment="Top"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="378,322,0,0" VerticalAlignment="Top" Width="94"/>
+        <Label Content="Rows:" HorizontalAlignment="Left" Margin="15,40,0,0" VerticalAlignment="Top"/>
+        <Label Content="Column:" HorizontalAlignment="Left" Margin="13,71,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="rows" HorizontalAlignment="Left" Height="19" Margin="80,46,0,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="38"/>
+        <TextBox Name="Columns"  HorizontalAlignment="Left" Height="19" Margin="79,75,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="38"/>
+        <Label Content="Enter tetris container details:" HorizontalAlignment="Left" Margin="14,8,0,0" VerticalAlignment="Top" Width="306"/>
+        <Button x:Name ="Add_Copy" Content="Intialize Container" HorizontalAlignment="Left" Height="28" Margin="153,54,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FF5FE82F" Background="#FF17CEA0" OpacityMask="#FF69EA31" FontWeight="Bold" Click="Add_Click"/>
     </Grid>
 </Window>

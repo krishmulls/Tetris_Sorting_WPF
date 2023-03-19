@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,6 +22,20 @@ namespace Tetris_Sorting_WPF
     public partial class MainWindow : Window
     {
 
+
+        private int[][] piece1 = { new int[] { 1, 0, 0 }, new int[] { 1, 1, 1 } };
+        private int[][] piece2 = { new int[] { 1, 1, 1 }, new int[] { 1, 0, 0 } };
+        private int[][] piece3 = { new int[] { 1, 1 }, new int[] { 0, 1 }, new int[] { 0, 1 } };
+        private int[][] piece4 = { new int[] { 1, 1 }, new int[] { 1, 0 }, new int[] { 1, 0 } };
+        private int[][] piece5 = { new int[] { 1, 1, 0 }, new int[] { 0, 1, 1 } };
+        private int[][] piece6 = { new int[] { 0, 1, 1 }, new int[] { 1, 1, 0 } };
+        private int[][] piece7 = { new int[] { 0, 1, 0 }, new int[] { 1, 1, 1 } };
+        private int[][] piece8 = { new int[] { 1, 1 }, new int[] { 1, 1 } };
+        private int[][] piece9 = { new int[] { 1 }, new int[] { 1 }, new int[] { 1 }, new int[] { 1 } };
+        private int[][] piece10 = { new int[] { 1, 1, 1, 1 } };
+
+
+
         private int[][] myArray = new int[][] {
             new int[] { 1, 2, 1, 1, 2, 1 },
             new int[] { 4, 5, 2, 1, 2, 1 },
@@ -35,7 +50,7 @@ namespace Tetris_Sorting_WPF
         public MainWindow()
         {
             InitializeComponent();
-            GenerateRectangles(20,380);
+
         }
         private void GenerateRectangles(double startX, double startY)
         {
@@ -60,7 +75,7 @@ namespace Tetris_Sorting_WPF
 
                     // Set the position of the rectangle on the canvas
                     double x = startX + j * (rectWidth + margin);
-                    double y = startY - (numRows- i - 1) * (rectHeight + margin);
+                    double y = startY - (numRows - i - 1) * (rectHeight + margin);
                     Canvas.SetLeft(rect, x);
                     Canvas.SetTop(rect, y);
 
@@ -76,6 +91,8 @@ namespace Tetris_Sorting_WPF
             // Return a color based on the value in the array
             switch (value)
             {
+                case 0:
+                    return Colors.White;
                 case 1:
                     return Colors.Red;
                 case 2:
@@ -97,6 +114,86 @@ namespace Tetris_Sorting_WPF
                 default:
                     return Colors.Transparent;
             }
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            TransformedBitmap transformBmp = new TransformedBitmap();
+            BitmapImage bmpImage = new BitmapImage();
+            bmpImage.BeginInit();
+            switch(Int32.Parse(Option.Text))
+            {
+                case 1:
+                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\one.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case 2:
+                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\two.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case 3:
+                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\three.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case 4:
+                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\four.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case 5:
+                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\five.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case 6:
+                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\six.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case 7:
+                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\seven.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case 8:
+                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\eight.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case 9:
+                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\nine.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case 10:
+                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\ten.png", UriKind.RelativeOrAbsolute);
+                    break;
+                default:
+                    MessageBox.Show("Select Valid Option.", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+            }
+            bmpImage.EndInit();
+            transformBmp.BeginInit();
+            transformBmp.Source = bmpImage;
+            RotateTransform transform = new RotateTransform(0);
+
+            switch (Int32.Parse(Rotation.Text))
+            {
+                case 0:
+                    transform = new RotateTransform(0);
+                    break;
+                case 1:
+                    transform = new RotateTransform(90);
+                    break;
+                case 2:
+                    transform = new RotateTransform(180);
+                    break;
+                case 3:
+                    transform = new RotateTransform(270);
+                    break;
+                default:
+                    MessageBox.Show("Select Valid Option: 1:90, 2:180, 3:270", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+            }
+            transformBmp.Transform = transform;
+            transformBmp.EndInit();
+            Selected_Image.Source = transformBmp;
+        }
+
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
