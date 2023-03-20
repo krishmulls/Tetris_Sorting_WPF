@@ -30,6 +30,7 @@ namespace Tetris_Sorting_WPF
         int[][] piece;
         int rotation = 0;
 
+        ContainerDrawing drawing;
 
         public MainWindow()
         {
@@ -37,27 +38,7 @@ namespace Tetris_Sorting_WPF
              * The Program UI and Modules Initialization
              */
             InitializeComponent();
-
-        }
-
-        private Color GetColor(int value)
-        {
-            // Return a color based on the value in the array
-            switch (value)
-            {
-                case 0:
-                    return Colors.Black;
-                case 1:
-                    return Colors.DarkSlateGray;
-                case 2:
-                    return Colors.Aqua;
-                case 3:
-                    return Colors.Teal;
-                case 4:
-                    return Colors.LightSeaGreen;
-                default:
-                    return Colors.Red;
-            }
+            drawing = new ContainerDrawing(ref canvas);
         }
 
         public void Add_Click(object sender, RoutedEventArgs e)
@@ -69,49 +50,13 @@ namespace Tetris_Sorting_WPF
             bool checkAdd = AddTetris(piece, rotation);
             if (checkAdd)
             {
-                GenerateContainerCells(15, 385);
+                drawing.draw(ref container);
             }
             else
             {
                 MessageBox.Show("Container is Full or Input piece is to complex to handle to add cancelling addition", "Add into Container Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-        }
-
-        internal void GenerateContainerCells(double startX, double startY)
-        {
-            /*
-             * The Container Cells UI generation in the canvas
-             */
-            numRows = container.Length;
-            numCols = container[0].Length;
-            double rectWidth = 20;
-            double rectHeight = 20;
-            double margin = 4;
-
-            for (int i = numRows - 1; i >= 0; i--)
-            {
-                for (int j = 0; j < numCols; j++)
-                {
-                    // Create a new rectangle for each element in the array
-                    Rectangle rect = new Rectangle();
-                    rect.Width = rectWidth;
-                    rect.Height = rectHeight;
-
-                    // Set the fill color based on the value in the array
-                    int value = container[i][j];
-                    rect.Fill = new SolidColorBrush(GetColor(value));
-
-                    // Set the position of the rectangle on the canvas
-                    double x = startX + j * (rectWidth + margin);
-                    double y = startY - (numRows - i - 1) * (rectHeight + margin);
-                    Canvas.SetLeft(rect, x);
-                    Canvas.SetTop(rect, y);
-
-                    // Add the rectangle to the canvas
-                    canvas.Children.Add(rect);
-                }
-            }
         }
 
         private void Show_Image()
@@ -215,7 +160,7 @@ namespace Tetris_Sorting_WPF
                     SelectedImage.Source = transformBmp;
                 }
             }
-            catch 
+            catch
             {
                 //Project startup Intialization error can be defined here
             }
@@ -226,16 +171,16 @@ namespace Tetris_Sorting_WPF
              */
 
             // Get the bottom-left unoccupied cell in the container
-            int[] bottomLeftCellContainer  = GetBottomLeftUnoccupiedCell(container);
+            int[] bottomLeftCellContainer = GetBottomLeftUnoccupiedCell(container);
             if (bottomLeftCellContainer is null)
             {
                 if (MessageBoxResult.OK == MessageBox.Show("Container is Full or Reserved", "Add into Container Error", MessageBoxButton.OK, MessageBoxImage.Error))
                 {
-                    if(MessageBoxResult.OK == MessageBox.Show("Do you want to clear container", "Clear Container", MessageBoxButton.OKCancel, MessageBoxImage.Error))
+                    if (MessageBoxResult.OK == MessageBox.Show("Do you want to clear container", "Clear Container", MessageBoxButton.OKCancel, MessageBoxImage.Error))
                     {
                         Clear_Click(new object(), new RoutedEventArgs());
                         bottomLeftCellContainer = new int[] { 0, 0 };
-                        GenerateContainerCells(15, 385);
+                        drawing.draw(ref container);
                     }
                     else
                     {
@@ -296,7 +241,7 @@ namespace Tetris_Sorting_WPF
                 container[j] = new int[col];
             }
             //To display the new container
-            GenerateContainerCells(15, 385);
+            drawing.draw(ref container);
         }
 
         private void Initialize_Container_Click(object sender, RoutedEventArgs e)
@@ -311,14 +256,14 @@ namespace Tetris_Sorting_WPF
             {
                 container[j] = new int[col];
             }
-            GenerateContainerCells(15, 385);
+            drawing.draw(ref container);
         }
 
         static int[][] RotatePiece(int[][] piece, int rotation)
         {
             /*
              * Rotate the piece by 90 degrees for each multiple of 1 for the value in rotation
-            */            
+            */
             while (rotation % 4 > 0)
             {
                 piece = RotatePieceOnce(piece);
@@ -327,8 +272,6 @@ namespace Tetris_Sorting_WPF
 
             return piece;
         }
-
-
 
         static int[][] RotatePieceOnce(int[][] piece)
         {
@@ -365,8 +308,8 @@ namespace Tetris_Sorting_WPF
                     container = this.container;
                 }
             }
-            int numRows = container.Length;
-            int numCols = container[0].Length;
+            numRows = container.Length;
+            numCols = container[0].Length;
             // Loop through the container from the bottom left to find the first unoccupied cell
             for (int row = numRows - 1; row >= 0; row--)
             {
@@ -389,14 +332,14 @@ namespace Tetris_Sorting_WPF
             /*
              * This method finds the bottom left Occupied cell in a 2D piece array
             */
-            int numRows = piece.Length;
-            int numCols = piece[0].Length;
+            int rows = piece.Length;
+            int columns = piece[0].Length;
 
-            for (int row = numRows - 1; row >= 0; row--)
+            for (int row = rows - 1; row >= 0; row--)
             {
-                for (int col = 0; col < numCols; col++)
+                for (int col = 0; col < columns; col++)
                 {
-                    if (piece[row][col]> 0)
+                    if (piece[row][col] > 0)
                     {
                         return new int[] { row, col };
                     }
@@ -453,7 +396,7 @@ namespace Tetris_Sorting_WPF
                     // Check if the container cell is within bounds or container cell is already occupied
                     if (containerRow > containerRows || containerCol < containerCols)
                     {
-                        if (container[containerRow][containerCol] == 0 && piece[((pieceRows - 1) - r)][c]> 0)
+                        if (container[containerRow][containerCol] == 0 && piece[((pieceRows - 1) - r)][c] > 0)
                         {
                             container[containerRow][containerCol] = piece[((pieceRows - 1) - r)][c];
                         }
@@ -480,7 +423,7 @@ namespace Tetris_Sorting_WPF
             int rowMerge = 0;
             // check if there is 0 column present at the bottom of piece inorder to merge the space
             // occupied space in container
-            if (pieceCol != 0 && container[numRows-1][0] != 0)
+            if (pieceCol != 0 && container[numRows - 1][0] != 0)
             {
                 columnMerge = -pieceCol;
             }
@@ -512,7 +455,7 @@ namespace Tetris_Sorting_WPF
                         containerRow = containerRows - 1;
                     }
                     // Check if the container cell is within bounds or container cell is already occupied
-                    if (containerRow >= containerRows || containerCol >= containerCols || (container[containerRow][containerCol]> 0 && piece[((pieceRows - 1) - r)][(c)]> 0))
+                    if (containerRow >= containerRows || containerCol >= containerCols || (container[containerRow][containerCol] > 0 && piece[((pieceRows - 1) - r)][(c)] > 0))
                     {
                         return false;
                     }
@@ -522,7 +465,7 @@ namespace Tetris_Sorting_WPF
                     {
                         if (((r - 1) < pieceRows && (r - 1) >= 0) && ((containerCol + 1) < containerCols))
                         {
-                            if ((container[containerRow][containerCol + 1]> 0) || piece[((pieceRows - 1) - r)][(c)] > 0)
+                            if ((container[containerRow][containerCol + 1] > 0) || piece[((pieceRows - 1) - r)][(c)] > 0)
                             {
                                 return false;
                             }
@@ -530,9 +473,6 @@ namespace Tetris_Sorting_WPF
                             {
                                 if (container[containerRow][conCol] == 0)
                                 {
-                                    //int[,] a[x,y];
-                                    //int[][] a[x][];
-                                    //
                                     return false;
                                 }
                             }
