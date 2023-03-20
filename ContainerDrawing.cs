@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,9 @@ namespace Tetris_Sorting_WPF
     {
         private const int START_X = 15;
         private const int START_Y = 385;
+        private const int CELLWIDTH = 20;
+        private const int CELLHEIGHT = 20;
+        private const int MARGIN = 4;
 
         private Canvas canvas;
 
@@ -28,9 +32,7 @@ namespace Tetris_Sorting_WPF
             */
             int numRows = container.Length;
             int numCols = container[0].Length;
-            double rectWidth = 20;
-            double rectHeight = 20;
-            double margin = 4;
+
 
             for (int i = numRows - 1; i >= 0; i--)
             {
@@ -38,16 +40,16 @@ namespace Tetris_Sorting_WPF
                 {
                     // Create a new rectangle for each element in the array
                     Rectangle rect = new Rectangle();
-                    rect.Width = rectWidth;
-                    rect.Height = rectHeight;
+                    rect.Width = CELLWIDTH;
+                    rect.Height = CELLHEIGHT;
 
                     // Set the fill color based on the value in the array
                     int value = container[i][j];
                     rect.Fill = new SolidColorBrush(GetColor(value));
 
                     // Set the position of the rectangle on the canvas
-                    double x = START_X + j * (rectWidth + margin);
-                    double y = START_Y - (numRows - i - 1) * (rectHeight + margin);
+                    double x = START_X + j * (CELLWIDTH + MARGIN);
+                    double y = START_Y - (numRows - i - 1) * (CELLHEIGHT + MARGIN);
                     Canvas.SetLeft(rect, x);
                     Canvas.SetTop(rect, y);
 
