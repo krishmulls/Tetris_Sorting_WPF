@@ -18,13 +18,12 @@ using System.Windows.Shapes;
 
 namespace Tetris_Sorting_WPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
-
-
+        /* 
+         *Initialization of class scope variables here
+         */
         private int[][] piece1 = { new int[] { 1, 0, 0 }, new int[] { 1, 1, 1 } };
         private int[][] piece2 = { new int[] { 2, 2, 2 }, new int[] { 2, 0, 0 } };
         private int[][] piece3 = { new int[] { 1, 1 }, new int[] { 0, 1 }, new int[] { 0, 1 } };
@@ -42,12 +41,18 @@ namespace Tetris_Sorting_WPF
 
         public MainWindow()
         {
+            /*
+             * The Program UI and Modules Initialization
+             */
             InitializeComponent();
 
         }
 
         private void GenerateRectangles(double startX, double startY)
         {
+            /*
+             * The Container Cells UI generation in the canvas
+             */
             numRows = container.Length;
             numCols = container[0].Length;
             double rectWidth = 20;
@@ -101,13 +106,22 @@ namespace Tetris_Sorting_WPF
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
-        {
+        {   /*
+             * Initiated when a add button is performed calls the add tetris to container
+             */
+            // Create a new transformed bitmap and bitmap image
             TransformedBitmap transformBmp = new TransformedBitmap();
             BitmapImage bmpImage = new BitmapImage();
+
+            // Begin initialization of the bitmap image
             bmpImage.BeginInit();
+
+            // Initialize piece array and rotation variable
             int[][] piece = piece8;
             int rotation;
-            switch(Int32.Parse(Option.Text))
+
+            // Set the image URI based on the selected option
+            switch (Int32.Parse(Option.Text))
             {
                 case 1:
                     bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\one.png", UriKind.RelativeOrAbsolute);
@@ -150,14 +164,22 @@ namespace Tetris_Sorting_WPF
                     piece = piece10;
                     break;
                 default:
+                    // Show error message if the selected option is invalid
                     MessageBox.Show("Select Valid Option.", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
             }
+            // End initialization of the bitmap image
             bmpImage.EndInit();
+
+            // Begin initialization of the transformed bitmap
             transformBmp.BeginInit();
             transformBmp.Source = bmpImage;
+
+            // Set the source and transformation of the transformed bitmap based on the selected rotation
             RotateTransform transform = new RotateTransform(0);
             rotation = Int32.Parse(Rotation.Text);
+
+            // Set the Rotation based on the selected option
             switch (rotation)
             {
                 case 0:
@@ -177,6 +199,8 @@ namespace Tetris_Sorting_WPF
                     break;
             }
             transformBmp.Transform = transform;
+            // End initialization of the transformed bitmap
+
             transformBmp.EndInit();
             SelectedImage.Source = transformBmp;
             bool checkAdd = AddTetris(piece, rotation);
@@ -192,7 +216,11 @@ namespace Tetris_Sorting_WPF
         }
 
         private bool AddTetris(int[][] piece, int rotation)
-        {   
+        {   /*
+             *The AddTetris method is responsible for adding a tetris piece to the container.
+             */
+
+            // Get the bottom-left unoccupied cell in the container
             int[] bottomLeftCellContainer = GetBottomLeftUnoccupiedCell(container);
             if (bottomLeftCellContainer is null)
             {
@@ -212,20 +240,24 @@ namespace Tetris_Sorting_WPF
             }
             int containerRow = bottomLeftCellContainer[0];
             int containerColumn = bottomLeftCellContainer[1];
+
+            // Rotate the tetris piece by the specified number of times
             piece = RotatePiece(piece, rotation);
             bool checkadd = false;
             while (containerRow >= 0)
             {
                 while (containerColumn < numCols)
                 {
+                    // Get the bottom-left occupied cell in the piece
                     int[] bottomLeftCellPiece = GetBottomLeftOccupiedCell(piece);
+                    // Check if the piece can be added to the container at the specified position
                     bool check = checkAddPieceToContainer(container, piece, containerRow, containerColumn, bottomLeftCellPiece[0], bottomLeftCellPiece[1]);
                     if (check)
                     {
+                        // Add piece to the container
                         checkadd = AddPieceToContainer(container, piece, containerRow, containerColumn, bottomLeftCellPiece[0], bottomLeftCellPiece[1]);
                         break;
                     }
-
                     if (checkadd)
                     {
                         break;
@@ -242,13 +274,10 @@ namespace Tetris_Sorting_WPF
             return checkadd;
         }
 
-        private void Delete_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Clear_Click(object sender, RoutedEventArgs e)
-        {
+        {   /*
+             * Initiated when a clear button is performed to clear container
+             */
             int row = Int32.Parse(rows.Text);
             int col = Int32.Parse(Columns.Text);
             container = new int[row][];
@@ -256,11 +285,15 @@ namespace Tetris_Sorting_WPF
             {
                 container[j] = new int[col];
             }
+            //To display the new container
             GenerateRectangles(15, 385);
         }
 
         private void Initialize_Container_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * Initiated when a Initiate Cotainer button is  clicked to Initiate container with null values
+             */
             int row = Int32.Parse(rows.Text);
             int col = Int32.Parse(Columns.Text);
             container = new int[row][];
@@ -271,26 +304,11 @@ namespace Tetris_Sorting_WPF
             GenerateRectangles(15, 385);
         }
 
-        static void PrintContainer(int[][] container)
-        {
-            int rows = container.Length;
-            int cols = container[0].Length;
-
-            for (int row = 0; row < rows; row++)
-            {
-                for (int col = 0; col < cols; col++)
-                {
-                    Console.Write(container[row][col] + " ");
-                }
-                Console.WriteLine();
-            }
-
-            Console.WriteLine();
-        }
-
         static int[][] RotatePiece(int[][] piece, int rotation)
         {
-            // Rotate the piece by 90 degrees for each multiple of 1
+            /*
+             * Rotate the piece by 90 degrees for each multiple of 1 for the value in rotation
+            */            
             while (rotation % 4 > 0)
             {
                 piece = RotatePieceOnce(piece);
@@ -302,6 +320,9 @@ namespace Tetris_Sorting_WPF
 
         static int[][] RotatePieceOnce(int[][] piece)
         {
+            /*
+            * Rotate the piece once by 90 degrees 
+            */
             int height = piece.Length;
             int width = piece[0].Length;
             int[][] rotatedPiece = new int[width][];
@@ -320,6 +341,10 @@ namespace Tetris_Sorting_WPF
 
         private int[] GetBottomLeftUnoccupiedCell(int[][] container)
         {
+            /*
+             * This method finds the bottom left unoccupied cell in a 2D container array
+            */
+            // If container is null, prompt the user to initialize it with default values
             if (container == null)
             {
                 if (MessageBoxResult.OK == MessageBox.Show("Please initialize container first, Click OK to initialize now with default row, column and continue process", "Container Initialization", MessageBoxButton.OK, MessageBoxImage.Error))
@@ -330,11 +355,12 @@ namespace Tetris_Sorting_WPF
             }
             int numRows = container.Length;
             int numCols = container[0].Length;
-
+            // Loop through the container from the bottom left to find the first unoccupied cell
             for (int row = numRows - 1; row >= 0; row--)
             {
                 for (int col = 0; col < numCols; col++)
                 {
+                    // If an unoccupied cell is found, return its row and column as an integer array
                     if (container[row][col] == 0)
                     {
                         return new int[] { row, col };
@@ -346,17 +372,11 @@ namespace Tetris_Sorting_WPF
             return null;
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                Add_Click(new object(), new RoutedEventArgs());
-
-            }
-        }
-
         private static int[] GetBottomLeftOccupiedCell(int[][] piece)
         {
+            /*
+             * This method finds the bottom left Occupied cell in a 2D piece array
+            */
             int numRows = piece.Length;
             int numCols = piece[0].Length;
 
@@ -375,7 +395,9 @@ namespace Tetris_Sorting_WPF
         }
 
         private bool AddPieceToContainer(int[][] container, int[][] piece, int row, int col, int pieceRow, int pieceCol)
-        {
+        {   /*
+             * Source code Logic for adding piece into container 
+             */
             // Get the dimensions of the container and piece arrays
             int containerRows = container.Length;
             int containerCols = container[0].Length;
@@ -383,10 +405,14 @@ namespace Tetris_Sorting_WPF
             int pieceCols = piece[0].Length;
             int columnMerge = 0;
             int rowMerge = 0;
+            // check if there is 0 column present at the bottom of piece inorder to merge the space
+            // occupied space in container
             if (pieceCol != 0 && container[numRows - 1][0] != 0)
             {
                 columnMerge = -pieceCol;
             }
+            // check if there is 0 rows present at the bottom to top of piece inorder to merge the
+            // space occupied space in container
             if (pieceRow != pieceRows - 1 && container[numRows - 1][0] != 0)
             {
                 rowMerge = pieceRow;
@@ -424,6 +450,9 @@ namespace Tetris_Sorting_WPF
 
         private bool checkAddPieceToContainer(int[][] container, int[][] piece, int row, int col, int pieceRow, int pieceCol)
         {
+            /*
+             * Source code Logic for checking a  piece of container can be added into container 
+             */
             // Get the dimensions of the container and piece arrays
             int containerRows = container.Length;
             int containerCols = container[0].Length;
@@ -431,10 +460,14 @@ namespace Tetris_Sorting_WPF
             int pieceCols = piece[0].Length;
             int columnMerge = 0;
             int rowMerge = 0;
+            // check if there is 0 column present at the bottom of piece inorder to merge the space
+            // occupied space in container
             if (pieceCol != 0 && container[numRows-1][0] != 0)
             {
                 columnMerge = -pieceCol;
             }
+            // check if there is 0 rows present at the bottom to top of piece inorder to merge the
+            // space occupied space in container
             if (pieceRow != pieceRows - 1 && container[numRows - 1][0] != 0)
             {
                 rowMerge = pieceRow;
@@ -463,6 +496,8 @@ namespace Tetris_Sorting_WPF
                     {
                         return false;
                     }
+                    // If an empty cell is found make sure the neighbour are not envolping it
+                    // So no piece call fill the space
                     if (piece[((pieceRows - 1) - r)][(c)] == 0)
                     {
                         if (((r - 1) < pieceRows && (r - 1) >= 0) && ((containerCol + 1) < containerCols))
