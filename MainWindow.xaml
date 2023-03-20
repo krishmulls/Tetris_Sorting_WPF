@@ -35,9 +35,8 @@
         <TextBox Name="Option" HorizontalAlignment="Left" Height="22" Margin="409,259,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.485,0.017"/>
         <TextBox Name="Rotation" HorizontalAlignment="Left" Height="22" Margin="487,259,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.515,0.562"/>
         <Button Name ="Add" Content="ADD" HorizontalAlignment="Left" Height="28" Margin="359,411,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FF5FE82F" Background="#FF5BD62F" OpacityMask="#FF69EA31" FontWeight="Bold" Click="Add_Click"/>
-        <Button Name="Delete" Content="DELETE" HorizontalAlignment="Left" Height="28" Margin="357,449,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FFED3618" Background="#FFE63317" OpacityMask="#FF69EA31" FontWeight="Bold" Click="Delete_Click"/>
-        <Button Name="Clear" Content="CLEAR" HorizontalAlignment="Left" Height="28" Margin="359,485,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FFC5C70D" Background="#FFE0BC13" OpacityMask="#FFE7F312" FontWeight="Bold" Click="Clear_Click"/>
-        <Image Name="Selected_Image" HorizontalAlignment="Left" Height="41" Margin="378,322,0,0" VerticalAlignment="Top" Width="94"/>
+        <Button Name="Clear" Content="CLEAR" HorizontalAlignment="Left" Height="28" Margin="358,448,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FFC5C70D" Background="#FFE0BC13" OpacityMask="#FFE7F312" FontWeight="Bold" Click="Clear_Click"/>
+        <Image Name="SelectedImage" HorizontalAlignment="Left" Height="41" Margin="378,322,0,0" VerticalAlignment="Top" Width="94"/>
         <Label Content="Display Selected Option:" HorizontalAlignment="Left" Margin="334,284,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="3." HorizontalAlignment="Left" Margin="347,100,0,0" VerticalAlignment="Top"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="378,322,0,0" VerticalAlignment="Top" Width="94"/>
@@ -45,7 +44,7 @@
         <Label Content="Column:" HorizontalAlignment="Left" Margin="13,71,0,0" VerticalAlignment="Top"/>
         <TextBox Name="rows" HorizontalAlignment="Left" Height="19" Margin="80,46,0,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="38"/>
         <TextBox Name="Columns"  HorizontalAlignment="Left" Height="19" Margin="79,75,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="38"/>
-        <Label Content="Enter tetris container details:" HorizontalAlignment="Left" Margin="14,8,0,0" VerticalAlignment="Top" Width="306"/>
-        <Button x:Name ="Add_Copy" Content="Intialize Container" HorizontalAlignment="Left" Height="28" Margin="153,54,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FF5FE82F" Background="#FF17CEA0" OpacityMask="#FF69EA31" FontWeight="Bold" Click="Add_Click"/>
+        <Label Content="Enter tetris container details:   -  Due To UI Max [ 16, 10]" HorizontalAlignment="Left" Margin="14,8,0,0" VerticalAlignment="Top" Width="306"/>
+        <Button Name ="Initialize_Container" Content="Intialize Container" HorizontalAlignment="Left" Height="28" Margin="153,54,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FF5FE82F" Background="#FF17CEA0" OpacityMask="#FF69EA31" FontWeight="Bold" Click="Initialize_Container_Click"/>
     </Grid>
 </Window>
