@@ -69,7 +69,7 @@ namespace Tetris_Sorting_WPF
             bool checkAdd = AddTetris(piece, rotation);
             if (checkAdd)
             {
-                GenerateRectangles(15, 385);
+                GenerateContainerCells(15, 385);
             }
             else
             {
@@ -78,7 +78,7 @@ namespace Tetris_Sorting_WPF
 
         }
 
-        private void GenerateRectangles(double startX, double startY)
+        internal void GenerateContainerCells(double startX, double startY)
         {
             /*
              * The Container Cells UI generation in the canvas
@@ -235,7 +235,7 @@ namespace Tetris_Sorting_WPF
                     {
                         Clear_Click(new object(), new RoutedEventArgs());
                         bottomLeftCellContainer = new int[] { 0, 0 };
-                        GenerateRectangles(15, 385);
+                        GenerateContainerCells(15, 385);
                     }
                     else
                     {
@@ -296,7 +296,7 @@ namespace Tetris_Sorting_WPF
                 container[j] = new int[col];
             }
             //To display the new container
-            GenerateRectangles(15, 385);
+            GenerateContainerCells(15, 385);
         }
 
         private void Initialize_Container_Click(object sender, RoutedEventArgs e)
@@ -311,7 +311,7 @@ namespace Tetris_Sorting_WPF
             {
                 container[j] = new int[col];
             }
-            GenerateRectangles(15, 385);
+            GenerateContainerCells(15, 385);
         }
 
         static int[][] RotatePiece(int[][] piece, int rotation)
