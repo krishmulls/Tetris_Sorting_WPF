@@ -1,19 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Tetris_Sorting_WPF
@@ -37,6 +26,9 @@ namespace Tetris_Sorting_WPF
         public int[][] container;
         int numRows = 0;
         int numCols = 0;
+        bool exception = false;
+        int[][] piece;
+        int rotation = 0;
 
 
         public MainWindow()
@@ -45,6 +37,44 @@ namespace Tetris_Sorting_WPF
              * The Program UI and Modules Initialization
              */
             InitializeComponent();
+
+        }
+
+        private Color GetColor(int value)
+        {
+            // Return a color based on the value in the array
+            switch (value)
+            {
+                case 0:
+                    return Colors.Black;
+                case 1:
+                    return Colors.DarkSlateGray;
+                case 2:
+                    return Colors.Aqua;
+                case 3:
+                    return Colors.Teal;
+                case 4:
+                    return Colors.LightSeaGreen;
+                default:
+                    return Colors.Red;
+            }
+        }
+
+        public void Add_Click(object sender, RoutedEventArgs e)
+        {   /*
+             * Initiated when a add button is performed calls the add tetris to container
+             */
+            // Create a new transformed bitmap and bitmap image
+            Show_Image();
+            bool checkAdd = AddTetris(piece, rotation);
+            if (checkAdd)
+            {
+                GenerateRectangles(15, 385);
+            }
+            else
+            {
+                MessageBox.Show("Container is Full or Input piece is to complex to handle to add cancelling addition", "Add into Container Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
 
@@ -84,144 +114,119 @@ namespace Tetris_Sorting_WPF
             }
         }
 
-
-        private Color GetColor(int value)
+        private void Show_Image()
         {
-            // Return a color based on the value in the array
-            switch (value)
+            try
             {
-                case 0:
-                    return Colors.Black;
-                case 1:
-                    return Colors.DarkSlateGray; 
-                case 2:
-                    return Colors.Aqua;
-                case 3:
-                    return Colors.Teal;
-                case 4:
-                    return Colors.LightSeaGreen;
-                default:
-                    return Colors.Red;
+                TransformedBitmap transformBmp = new TransformedBitmap();
+                BitmapImage bmpImage = new BitmapImage();
+
+                // Begin initialization of the bitmap image
+                bmpImage.BeginInit();
+
+                // Initialize piece array and rotation variable
+
+                // Set the image URI based on the selected option
+                switch (Int32.Parse(Option.Text))
+                {
+                    case 1:
+                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\one.png", UriKind.RelativeOrAbsolute);
+                        piece = piece1;
+                        break;
+                    case 2:
+                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\two.png", UriKind.RelativeOrAbsolute);
+                        piece = piece2;
+                        break;
+                    case 3:
+                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\three.png", UriKind.RelativeOrAbsolute);
+                        piece = piece3;
+                        break;
+                    case 4:
+                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\four.png", UriKind.RelativeOrAbsolute);
+                        piece = piece4;
+                        break;
+                    case 5:
+                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\five.png", UriKind.RelativeOrAbsolute);
+                        piece = piece5;
+                        break;
+                    case 6:
+                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\six.png", UriKind.RelativeOrAbsolute);
+                        piece = piece6;
+                        break;
+                    case 7:
+                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\seven.png", UriKind.RelativeOrAbsolute);
+                        piece = piece7;
+                        break;
+                    case 8:
+                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\eight.png", UriKind.RelativeOrAbsolute);
+                        piece = piece8;
+                        break;
+                    case 9:
+                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\nine.png", UriKind.RelativeOrAbsolute);
+                        piece = piece9;
+                        break;
+                    case 10:
+                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\ten.png", UriKind.RelativeOrAbsolute);
+                        piece = piece10;
+                        break;
+                    default:
+                        // Show error message if the selected option is invalid
+                        MessageBox.Show("Select Valid Option.", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                }
+                // End initialization of the bitmap image
+                bmpImage.EndInit();
+
+                // Begin initialization of the transformed bitmap
+                transformBmp.BeginInit();
+                transformBmp.Source = bmpImage;
+
+                // Set the source and transformation of the transformed bitmap based on the selected rotation
+                RotateTransform transform = new RotateTransform(0);
+                if (Rotation != null)
+                {
+                    rotation = Int32.Parse(Rotation.Text);
+                }
+                // Set the Rotation based on the selected option
+                switch (rotation)
+                {
+                    case 0:
+                        transform = new RotateTransform(0);
+                        break;
+                    case 1:
+                        transform = new RotateTransform(90);
+                        break;
+                    case 2:
+                        transform = new RotateTransform(180);
+                        break;
+                    case 3:
+                        transform = new RotateTransform(270);
+                        break;
+                    default:
+                        MessageBox.Show("Select Valid Option: 1:90, 2:180, 3:270", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                }
+                transformBmp.Transform = transform;
+                // End initialization of the transformed bitmap
+
+                transformBmp.EndInit();
+                if (SelectedImage != null)
+                {
+                    SelectedImage.Source = transformBmp;
+                }
+            }
+            catch 
+            {
+                //Project startup Intialization error can be defined here
             }
         }
-
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {   /*
-             * Initiated when a add button is performed calls the add tetris to container
-             */
-            // Create a new transformed bitmap and bitmap image
-            TransformedBitmap transformBmp = new TransformedBitmap();
-            BitmapImage bmpImage = new BitmapImage();
-
-            // Begin initialization of the bitmap image
-            bmpImage.BeginInit();
-
-            // Initialize piece array and rotation variable
-            int[][] piece = piece8;
-            int rotation;
-
-            // Set the image URI based on the selected option
-            switch (Int32.Parse(Option.Text))
-            {
-                case 1:
-                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\one.png", UriKind.RelativeOrAbsolute);
-                    piece = piece1; 
-                    break;
-                case 2:
-                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\two.png", UriKind.RelativeOrAbsolute);
-                    piece = piece2;
-                    break;
-                case 3:
-                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\three.png", UriKind.RelativeOrAbsolute);
-                    piece = piece3;
-                    break;
-                case 4:
-                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\four.png", UriKind.RelativeOrAbsolute);
-                    piece = piece4;
-                    break;
-                case 5:
-                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\five.png", UriKind.RelativeOrAbsolute);
-                    piece = piece5;
-                    break;
-                case 6:
-                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\six.png", UriKind.RelativeOrAbsolute);
-                    piece = piece6;
-                    break;
-                case 7:
-                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\seven.png", UriKind.RelativeOrAbsolute);
-                    piece = piece7;
-                    break;
-                case 8:
-                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\eight.png", UriKind.RelativeOrAbsolute);
-                    piece = piece8;
-                    break;
-                case 9:
-                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\nine.png", UriKind.RelativeOrAbsolute);
-                    piece = piece9;
-                    break;
-                case 10:
-                    bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\ten.png", UriKind.RelativeOrAbsolute);
-                    piece = piece10;
-                    break;
-                default:
-                    // Show error message if the selected option is invalid
-                    MessageBox.Show("Select Valid Option.", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    break;
-            }
-            // End initialization of the bitmap image
-            bmpImage.EndInit();
-
-            // Begin initialization of the transformed bitmap
-            transformBmp.BeginInit();
-            transformBmp.Source = bmpImage;
-
-            // Set the source and transformation of the transformed bitmap based on the selected rotation
-            RotateTransform transform = new RotateTransform(0);
-            rotation = Int32.Parse(Rotation.Text);
-
-            // Set the Rotation based on the selected option
-            switch (rotation)
-            {
-                case 0:
-                    transform = new RotateTransform(0);
-                    break;
-                case 1:
-                    transform = new RotateTransform(90);  
-                    break;
-                case 2:
-                    transform = new RotateTransform(180);
-                    break;
-                case 3:
-                    transform = new RotateTransform(270);
-                    break;
-                default:
-                    MessageBox.Show("Select Valid Option: 1:90, 2:180, 3:270", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    break;
-            }
-            transformBmp.Transform = transform;
-            // End initialization of the transformed bitmap
-
-            transformBmp.EndInit();
-            SelectedImage.Source = transformBmp;
-            bool checkAdd = AddTetris(piece, rotation);
-            if (checkAdd)
-            {
-                GenerateRectangles(15, 385);
-            }
-            else
-            {
-                MessageBox.Show("Container is Full or Input piece is to complex to handle", "Add into Container Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-        }
-
         private bool AddTetris(int[][] piece, int rotation)
         {   /*
              *The AddTetris method is responsible for adding a tetris piece to the container.
              */
 
             // Get the bottom-left unoccupied cell in the container
-            int[] bottomLeftCellContainer = GetBottomLeftUnoccupiedCell(container);
+            int[] bottomLeftCellContainer  = GetBottomLeftUnoccupiedCell(container);
             if (bottomLeftCellContainer is null)
             {
                 if (MessageBoxResult.OK == MessageBox.Show("Container is Full or Reserved", "Add into Container Error", MessageBoxButton.OK, MessageBoxImage.Error))
@@ -229,12 +234,13 @@ namespace Tetris_Sorting_WPF
                     if(MessageBoxResult.OK == MessageBox.Show("Do you want to clear container", "Clear Container", MessageBoxButton.OKCancel, MessageBoxImage.Error))
                     {
                         Clear_Click(new object(), new RoutedEventArgs());
-                        bottomLeftCellContainer[1] = 0;
-                        bottomLeftCellContainer[0] = 0;
+                        bottomLeftCellContainer = new int[] { 0, 0 };
+                        GenerateRectangles(15, 385);
                     }
                     else
                     {
-                        MessageBox.Show("Application will Close", "Application Close", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Cancelling Addition", "Addition Cancelled", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return false;
                     }
                 }
             }
@@ -252,6 +258,10 @@ namespace Tetris_Sorting_WPF
                     int[] bottomLeftCellPiece = GetBottomLeftOccupiedCell(piece);
                     // Check if the piece can be added to the container at the specified position
                     bool check = checkAddPieceToContainer(container, piece, containerRow, containerColumn, bottomLeftCellPiece[0], bottomLeftCellPiece[1]);
+                    if (exception == true)
+                    {
+                        return false;
+                    }
                     if (check)
                     {
                         // Add piece to the container
@@ -317,6 +327,8 @@ namespace Tetris_Sorting_WPF
 
             return piece;
         }
+
+
 
         static int[][] RotatePieceOnce(int[][] piece)
         {
@@ -424,6 +436,12 @@ namespace Tetris_Sorting_WPF
                 {
                     int containerRow = row - r + rowMerge;
                     int containerCol = col + c + columnMerge;
+                    if (containerRow < 0 || containerCol < 0)
+                    {
+                        MessageBox.Show("The Piece cannot be added because of not found space to add and pattern become complex, Exiting application, check logs for more", "Container Space error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        exception = true;
+                        return false;
+                    }
                     if (containerCol < 0)
                     {
                         containerCol = 0;
@@ -479,6 +497,12 @@ namespace Tetris_Sorting_WPF
                 {
                     int containerRow = row - r + rowMerge;
                     int containerCol = col + c + columnMerge;
+                    if (containerRow < 0 || containerCol < 0)
+                    {
+                        MessageBox.Show("The Piece cannot be added because of not found space to add and pattern become complex, check logs for more", "Container Space error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        exception = true;
+                        return false;
+                    }
                     if (containerCol < 0)
                     {
                         containerCol = 0;
@@ -486,10 +510,6 @@ namespace Tetris_Sorting_WPF
                     if (containerRow >= containerRows)
                     {
                         containerRow = containerRows - 1;
-                        if (containerRow < 0)
-                        {
-                            MessageBox.Show("The Piece cannot be added because of not found space to add and pattern become complex, Exiting application, check logs for more", "Container Space error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
                     }
                     // Check if the container cell is within bounds or container cell is already occupied
                     if (containerRow >= containerRows || containerCol >= containerCols || (container[containerRow][containerCol]> 0 && piece[((pieceRows - 1) - r)][(c)]> 0))
@@ -510,6 +530,9 @@ namespace Tetris_Sorting_WPF
                             {
                                 if (container[containerRow][conCol] == 0)
                                 {
+                                    //int[,] a[x,y];
+                                    //int[][] a[x][];
+                                    //
                                     return false;
                                 }
                             }
@@ -518,6 +541,16 @@ namespace Tetris_Sorting_WPF
                 }
             }
             return true;
+        }
+
+        private void Option_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Show_Image();
+        }
+
+        private void Rotation_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Show_Image();
         }
     }
 }

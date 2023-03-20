@@ -32,8 +32,8 @@
         <Label Content="Step 2: Select Option To Add:" HorizontalAlignment="Left" Margin="335,224,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="Option:" HorizontalAlignment="Left" Margin="349,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.35,0.348"/>
         <Label Content="Rotate:" HorizontalAlignment="Left" Margin="435,254,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="Option" HorizontalAlignment="Left" Height="22" Margin="409,259,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.485,0.017"/>
-        <TextBox Name="Rotation" HorizontalAlignment="Left" Height="22" Margin="487,259,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.515,0.562"/>
+        <TextBox Name="Option" HorizontalAlignment="Left" Height="22" Margin="409,259,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.485,0.017" TextChanged="Option_TextChanged"/>
+        <TextBox Name="Rotation" HorizontalAlignment="Left" Height="22" Margin="487,259,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.515,0.562" TextChanged="Rotation_TextChanged"/>
         <Button Name ="Add" Content="ADD" HorizontalAlignment="Left" Height="28" Margin="359,411,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FF5FE82F" Background="#FF5BD62F" OpacityMask="#FF69EA31" FontWeight="Bold" Click="Add_Click"/>
         <Button Name="Clear" Content="CLEAR" HorizontalAlignment="Left" Height="28" Margin="358,448,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FFC5C70D" Background="#FFE0BC13" OpacityMask="#FFE7F312" FontWeight="Bold" Click="Clear_Click"/>
         <Image Name="SelectedImage" HorizontalAlignment="Left" Height="41" Margin="378,322,0,0" VerticalAlignment="Top" Width="94"/>
