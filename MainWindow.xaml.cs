@@ -93,13 +93,13 @@ namespace Tetris_Sorting_WPF
                 case 0:
                     return Colors.Black;
                 case 1:
-                    return Colors.DarkBlue;
+                    return Colors.DarkSlateGray; 
                 case 2:
                     return Colors.Aqua;
                 case 3:
-                    return Colors.DarkOliveGreen;
+                    return Colors.Teal;
                 case 4:
-                    return Colors.LightBlue;
+                    return Colors.LightSeaGreen;
                 default:
                     return Colors.Red;
             }

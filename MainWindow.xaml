@@ -29,7 +29,7 @@
         <Image HorizontalAlignment="Left" Height="46" Margin="467,91,0,0" VerticalAlignment="Top" Width="40" Source="images/eight.png"/>
         <Image HorizontalAlignment="Left" Height="42" Margin="477,135,0,0" VerticalAlignment="Top" Width="46" Source="images/nine.png"/>
         <Image HorizontalAlignment="Left" Height="40" Margin="465,185,0,0" VerticalAlignment="Top" Width="50" Source="images/ten.png"/>
-        <Label Content="Select Option To Add:" HorizontalAlignment="Left" Margin="335,224,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Step 2: Select Option To Add:" HorizontalAlignment="Left" Margin="335,224,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="Option:" HorizontalAlignment="Left" Margin="349,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.35,0.348"/>
         <Label Content="Rotate:" HorizontalAlignment="Left" Margin="435,254,0,0" VerticalAlignment="Top"/>
         <TextBox Name="Option" HorizontalAlignment="Left" Height="22" Margin="409,259,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.485,0.017"/>
@@ -44,7 +44,8 @@
         <Label Content="Column:" HorizontalAlignment="Left" Margin="13,71,0,0" VerticalAlignment="Top"/>
         <TextBox Name="rows" HorizontalAlignment="Left" Height="19" Margin="80,46,0,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="38"/>
         <TextBox Name="Columns"  HorizontalAlignment="Left" Height="19" Margin="79,75,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="38"/>
-        <Label Content="Enter tetris container details:   -  Due To UI Max [ 16, 10]" HorizontalAlignment="Left" Margin="14,8,0,0" VerticalAlignment="Top" Width="306"/>
-        <Button Name ="Initialize_Container" Content="Intialize Container" HorizontalAlignment="Left" Height="28" Margin="153,54,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FF5FE82F" Background="#FF17CEA0" OpacityMask="#FF69EA31" FontWeight="Bold" Click="Initialize_Container_Click"/>
+        <Label Content="Step 1: Enter tetris container details: " HorizontalAlignment="Left" Margin="14,8,0,0" VerticalAlignment="Top" Width="306" FontWeight="Bold"/>
+        <Button Name ="Initialize_Container" Content="Intialize Container" HorizontalAlignment="Left" Height="28" Margin="149,65,0,0" VerticalAlignment="Top" Width="146" BorderBrush="#FF5FE82F" Background="#FF17CEA0" OpacityMask="#FF69EA31" FontWeight="Bold" Click="Initialize_Container_Click"/>
+        <Label Content="                 Max [r,c] = [16,10]" HorizontalAlignment="Left" Margin="107,36,0,0" VerticalAlignment="Top" Width="306" FontWeight="Bold"/>
     </Grid>
 </Window>
