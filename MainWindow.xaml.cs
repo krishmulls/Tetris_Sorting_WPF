@@ -34,6 +34,7 @@ namespace Tetris_Sorting_WPF
         ContainerDrawing drawing;
         ShowPiecePreview imagePreview;
         CheckAddPiece checkAdd;
+        Rotate rotatePiece;
 
         public MainWindow()
         {
@@ -45,7 +46,7 @@ namespace Tetris_Sorting_WPF
             InitializeComponent();
             drawing = new ContainerDrawing(ref canvas);
             checkAdd = new CheckAddPiece(ref numRows, ref numCols, ref exception);
-
+            rotatePiece = new Rotate();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -113,7 +114,7 @@ namespace Tetris_Sorting_WPF
             int containerColumn = bottomLeftCellContainer[1];
 
             // Rotate the tetris piece by the specified number of times
-            piece = RotatePiece(piece, rotation);
+            piece = rotatePiece.RotatePiece(ref piece, rotation);
             bool checkadd = false;
             while (containerRow >= 0)
             {
@@ -155,13 +156,7 @@ namespace Tetris_Sorting_WPF
              */
             int row = Int32.Parse(rows.Text);
             int col = Int32.Parse(Columns.Text);
-            container = new int[row][];
-            for (int j = 0; j < row; j++)
-            {
-                container[j] = new int[col];
-            }
-            //To display the new container
-            drawing.draw(ref container);
+            drawing.clearContainer(ref container, row, col);
         }
 
         public void Initialize_Container_Click(object sender, RoutedEventArgs e)
@@ -171,48 +166,10 @@ namespace Tetris_Sorting_WPF
              */
             int row = Int32.Parse(rows.Text);
             int col = Int32.Parse(Columns.Text);
-            container = new int[row][];
-            for (int j = 0; j < row; j++)
-            {
-                container[j] = new int[col];
-            }
-            drawing.draw(ref container);
+            drawing.clearContainer(ref container, row, col);
         }
 
-        static int[][] RotatePiece(int[][] piece, int rotation)
-        {
-            /*
-             * Rotate the piece by 90 degrees for each multiple of 1 for the value in rotation
-            */
-            while (rotation % 4 > 0)
-            {
-                piece = RotatePieceOnce(piece);
-                rotation--;
-            }
 
-            return piece;
-        }
-
-        static int[][] RotatePieceOnce(int[][] piece)
-        {
-            /*
-            * Rotate the piece once by 90 degrees 
-            */
-            int height = piece.Length;
-            int width = piece[0].Length;
-            int[][] rotatedPiece = new int[width][];
-
-            for (int i = 0; i < width; i++)
-            {
-                rotatedPiece[i] = new int[height];
-                for (int j = 0; j < height; j++)
-                {
-                    rotatedPiece[i][j] = piece[height - j - 1][i];
-                }
-            }
-
-            return rotatedPiece;
-        }
 
         private int[] GetBottomLeftUnoccupiedCell(int[][] container)
         {

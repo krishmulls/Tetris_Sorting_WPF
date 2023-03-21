@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -77,6 +78,17 @@ namespace Tetris_Sorting_WPF
                 default:
                     return Colors.Red;
             }
+        }
+
+        public void clearContainer(ref int[][] container, int row, int col)
+        {
+            container = new int[row][];
+            for (int j = 0; j < row; j++)
+            {
+                container[j] = new int[col];
+            }
+            //To display the new container
+            draw(ref container);
         }
     }
 }
