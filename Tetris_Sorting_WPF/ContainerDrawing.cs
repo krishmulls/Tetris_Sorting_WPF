@@ -88,6 +88,7 @@ namespace Tetris_Sorting_WPF
                 container[j] = new int[col];
             }
             //To display the new container
+            canvas.Children.Clear();
             draw(ref container);
         }
     }

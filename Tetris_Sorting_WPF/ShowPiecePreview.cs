@@ -3,6 +3,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
+using System.Reflection;
+using System.IO;
 
 namespace Tetris_Sorting_WPF
 {
@@ -35,43 +37,43 @@ namespace Tetris_Sorting_WPF
                 switch (option)
                 {
                     case 1:
-                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\one.png", UriKind.RelativeOrAbsolute);
+                        bmpImage.UriSource = new Uri("pack://application:,,,/images/one.png");
                         piece = PIECE1;
                         break;
                     case 2:
-                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\two.png", UriKind.RelativeOrAbsolute);
+                        bmpImage.UriSource = new Uri("pack://application:,,,/images/two.png");
                         piece = PIECE2;
                         break;
                     case 3:
-                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\three.png", UriKind.RelativeOrAbsolute);
+                        bmpImage.UriSource = new Uri("pack://application:,,,/images/three.png");
                         piece = PIECE3;
                         break;
                     case 4:
-                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\four.png", UriKind.RelativeOrAbsolute);
+                        bmpImage.UriSource = new Uri("pack://application:,,,/images/four.png");
                         piece = PIECE4;
                         break;
                     case 5:
-                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\five.png", UriKind.RelativeOrAbsolute);
+                        bmpImage.UriSource = new Uri("pack://application:,,,/images/five.png");
                         piece = PIECE5;
                         break;
                     case 6:
-                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\six.png", UriKind.RelativeOrAbsolute);
+                        bmpImage.UriSource = new Uri("pack://application:,,,/images/six.png");
                         piece = PIECE6;
                         break;
                     case 7:
-                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\seven.png", UriKind.RelativeOrAbsolute);
+                        bmpImage.UriSource = new Uri("pack://application:,,,/images/seven.png");
                         piece = PIECE7;
                         break;
                     case 8:
-                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\eight.png", UriKind.RelativeOrAbsolute);
+                        bmpImage.UriSource = new Uri("pack://application:,,,/images/eight.png");
                         piece = PIECE8;
                         break;
                     case 9:
-                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\nine.png", UriKind.RelativeOrAbsolute);
+                        bmpImage.UriSource = new Uri("pack://application:,,,/images/nine.png");
                         piece = PIECE9;
                         break;
                     case 10:
-                        bmpImage.UriSource = new Uri(@"D:\Workspace\Tetris_Sorting_WPF\images\ten.png", UriKind.RelativeOrAbsolute);
+                        bmpImage.UriSource = new Uri("pack://application:,,,/images/ten.png");
                         piece = PIECE10;
                         break;
                     default:

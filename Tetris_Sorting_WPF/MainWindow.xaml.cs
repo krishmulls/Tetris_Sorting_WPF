@@ -169,8 +169,6 @@ namespace Tetris_Sorting_WPF
             drawing.clearContainer(ref container, row, col);
         }
 
-
-
         private int[] GetBottomLeftUnoccupiedCell(int[][] container)
         {
             /*
