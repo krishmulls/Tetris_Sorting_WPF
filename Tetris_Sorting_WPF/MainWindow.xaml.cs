@@ -156,6 +156,10 @@ namespace Tetris_Sorting_WPF
              */
             int row = Int32.Parse(rows.Text);
             int col = Int32.Parse(Columns.Text);
+            if (row > 16)
+                row = 16;
+            if (col > 10)
+                col = 10;
             drawing.clearContainer(ref container, row, col);
         }
 
@@ -166,6 +170,10 @@ namespace Tetris_Sorting_WPF
              */
             int row = Int32.Parse(rows.Text);
             int col = Int32.Parse(Columns.Text);
+            if (row > 16)
+                row = 16;
+            if (col > 10)
+                col = 10;
             drawing.clearContainer(ref container, row, col);
         }
 
